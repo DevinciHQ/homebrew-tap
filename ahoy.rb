@@ -16,14 +16,14 @@ class Ahoy < Formula
     # Build from the latest verison of ahoy.
     if build.head?
       ENV["GOPATH"] = buildpath
+      project = "github.com/DevinciHQ/ahoy"
       path = buildpath/"src/github.com/DevinciHQ/ahoy"
       path.install Dir["*"]
       Language::Go.stage_deps resources, buildpath/"src"
-      system "go", "build", "-o", "bin/ahoy", "github.com/DevinciHQ/ahoy"
-      bin.install "bin/ahoy"
+      system "bash", "src/" +project+"/build.sh", project
     else
       system "mv", "ahoy-darwin-amd64", "ahoy"
-      bin.install "ahoy"
     end
+    bin.install "ahoy"
   end
 end
